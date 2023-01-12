@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Vehical_Workshop_Automation.Models.Vehicle_Customer1>
+@{
+    ViewBag.Title = "Customer Vehicles";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Customer Vehicles</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">Workshop Automation</li>
+                    <li class="breadcrumb-item active"><a href="~/Customer/Logout">Sign Out</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <a href="@Url.Action("AddVehicle", "Customer")" class="btn sm btn btn-info mb-3 ml-3">+ New Vehicle</a>
+    <a href="@Url.Action("ViewAppointments", "Customer")" class="btn sm btn-outline-primary mb-3 ml-3">View Appointment</a>
+    <span class="ml-3 mt-1" style="color:red;">@TempData["Error"]</span>
+    <div class="container-fluid">
+        @if (Model.Count() > 0)
+        {
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Company</th>
+                        <th>Reg No.</th>
+                        <th>Color</th>
+                        <th>Model</th>
+                        <th>Miles_Km (KM)</th>
+                        <th>SetAppointment/Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in Model)
+                    {
+                        <tr>
+                            <td>@data.Name</td>
+                            <td>@data.Company</td>
+                            <td>@data.Reg_No</td>
+                            <td>@data.Color</td>
+                            <td>@data.Model</td>
+                            <td>@data.Miles_Km</td>
+                            <td>
+                                <a href="@Url.Action("Appointments","Customer",new {Vehicle_Reg_No=data.Reg_No,Miles_Km=data.Miles_Km })" class="btn sm btn btn-success">Set Appointment</a> |
+                                @Html.ActionLink("Remove", "Delete", new { id = data.id,data.Reg_No }, new { @class = "btn sm btn btn-danger" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <center><span>No vehicle added yet.</span></center>
+        }
+    </div>
+</section>
+

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Vehical_Workshop_Automation.Models.Services>
+
+@{
+    ViewBag.Title = "CheckUp";
+    Layout = "~/Views/Shared/_MechanicLayout.cshtml";
+}
+
+<h2 class="ml-3">Check Up</h2>
+<table class="table table-bordered ml-3">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            Price
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estimate) pkr
+            </td>
+        </tr>
+    }
+    <tr class="ml-3">
+        <td class="bg-green ml-3 text-center text-bold">Total Amount</td>
+        <td class="text-bold bg-red">@Model.Sum(a=>long.Parse(a.Estimate)) pkr</td>
+    </tr>
+</table>
+<a href="@Url.Action("SetTotalBill", "Mechanic",new {amount=Model.Sum(a=>long.Parse(a.Estimate))})" class="btn sm btn btn-success mb-3 ml-3">Done</a>

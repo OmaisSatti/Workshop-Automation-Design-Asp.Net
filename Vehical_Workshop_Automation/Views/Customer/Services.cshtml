@@ -1,0 +1,103 @@
+﻿@model Vehical_Workshop_Automation.Models.ServiceList
+@{
+    ViewBag.Title = "ServicesList";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+<h2 class="ml-3">Select Services Of Vehicle</h2>
+<span class="ml-3 mt-1" style="color:red;">@ViewBag.Error</span>
+@using (Html.BeginForm("SaveAppointmentService", "Customer", FormMethod.Post))
+{
+    <h3 class="text-red ml-3 my-3">Body</h3>
+    for (int i = 0; i < Model.Services.Count; i++)
+    {
+        if (Model.Services[i].Type == "Body")
+        {
+            <div class="d-flex bg-gradient-white mt-3 ml-5 mr-5">
+                <div class="p-2 ml-5">@Html.CheckBoxFor(m => Model.Services[i].Selected, new { @class = "cb" }) @Model.Services[i].Name</div>
+                <div class="ml-auto p-2 mr-5">@Html.DisplayFor(m => Model.Services[i].Estimate) pkr</div>
+                @Html.HiddenFor(m => Model.Services[i].Name)
+                @Html.HiddenFor(m => Model.Services[i].Duration)
+                @Html.HiddenFor(m => Model.Services[i].Estimate)
+                @Html.HiddenFor(m => Model.Services[i].Type)
+                @Html.HiddenFor(m => Model.Services[i].id)
+            </div>
+
+        }
+    }
+
+    <h3 class="text-red ml-3 my-3">Mechanical</h3>
+    for (int i = 0; i < Model.Services.Count; i++)
+    {
+        if (Model.Services[i].Type == "Mechanical")
+        {
+
+            <div class="d-flex bg-gradient-white mt-3 ml-5 mr-5">
+                <div class="p-2 ml-5">@Html.CheckBoxFor(m => Model.Services[i].Selected, new { @class = "cb" }) @Model.Services[i].Name</div>
+                <div class="ml-auto p-2 mr-5">@Html.DisplayFor(m => Model.Services[i].Estimate) pkr</div>
+                @Html.HiddenFor(m => Model.Services[i].Name)
+                @Html.HiddenFor(m => Model.Services[i].Duration)
+                @Html.HiddenFor(m => Model.Services[i].Estimate)
+                @Html.HiddenFor(m => Model.Services[i].Type)
+                @Html.HiddenFor(m => Model.Services[i].id)
+            </div>
+
+        }
+    }
+
+    <h3 class="text-red ml-3 my-3">Electrical</h3>
+    for (int i = 0; i < Model.Services.Count; i++)
+    {
+        if (Model.Services[i].Type == "Electrical")
+        {
+            <div class="d-flex bg-gradient-white mt-3 ml-5 mr-5">
+                <div class="p-2 ml-5">@Html.CheckBoxFor(m => Model.Services[i].Selected, new { @class = "cb" }) @Model.Services[i].Name</div>
+                <div class="ml-auto p-2 mr-5">@Html.DisplayFor(m => Model.Services[i].Estimate) pkr</div>
+                @Html.HiddenFor(m => Model.Services[i].Name)
+                @Html.HiddenFor(m => Model.Services[i].Duration)
+                @Html.HiddenFor(m => Model.Services[i].Estimate)
+                @Html.HiddenFor(m => Model.Services[i].Type)
+                @Html.HiddenFor(m => Model.Services[i].id)
+            </div>
+
+        }
+    }
+    <input type="submit" value="+ Save" class="btn sm btn btn-danger mb-3 ml-3 mt-3" />
+    <input type="button" value="Select All" id="cbbutton" class="btn sm btn btn-outline-info mb-3 ml-3 mt-3" onclick="return checkAllVerifySelection(this);" />
+    //<b>Select All</b> <input type="checkbox" value="true" name="chkVerifySelection" id="chkVerifySelection" onchange="return  checkAllVerifySelection2();" />
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    function checkAllVerifySelection(btn) {
+        if (btn.value == "Select All") {
+            $(".cb").each(function () {
+                $(this).attr('checked', true);
+            });
+            btn.value = "UnSelect All";
+        }
+        else {
+            $(".cb").each(function () {
+                $(this).attr('checked', false);
+            });
+            btn.value = "Select All";
+        }
+        return true;
+    } 
+
+    function checkAllVerifySelection2() {
+        var flag = $('input[name=chkVerifySelection]').is(':checked');
+        if (flag) {
+        $(".cb").each(function () {
+            $(this).attr('checked', true);
+        });
+                }
+        else {
+            $(".cb").each(function () {
+                $(this).attr('checked', false);
+            });
+        }
+        return true;
+    } 
+</script>
+
+
+

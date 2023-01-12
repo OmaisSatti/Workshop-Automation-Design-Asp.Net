@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Vehical_Workshop_Automation.Models.Customer>
+
+@{
+    ViewBag.Title = "AllCustomers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="ml-3">All Customers</h2>
+<table class="table table-bordered">
+    <tr class="thead-light">
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mobile_No)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mobile_No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+    </tr>
+}
+</table>

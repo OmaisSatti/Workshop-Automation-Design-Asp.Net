@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Vehical_Workshop_Automation.Models.Appointment>
+@{ ViewBag.Title = "ViewAppointments";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml"; }
+
+<h2 class="ml-3">View Appointments</h2>
+<span class="ml-3 mt-1" style="color:red;">@TempData["Error"]</span>
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>Appointment Date</th>
+            <th>Slot Number</th>
+            <th>Vehicle RegNo</th>
+            <th>CheckIn/Services</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr style="margin-top:30px;padding:5px">
+              <td>@item.Date</td>
+              <td>@item.Slot</td>
+              <td>@item.Vehicle_Reg_No</td>
+              <td>
+                  @if ((DateTime.Parse(item.Date) == (DateTime.Today)) && item.Status!="Yes")
+                  {
+                      @Html.ActionLink("+CheckIn", "CheckIn", new { date = item.Date, slot = item.Slot, regno = item.Vehicle_Reg_No, bayno = item.Bay_No,apno=item.Appointment_No }, new { @class = "btn btn-sm btn-primary" }) 
+                     
+                  }
+                  else
+                  {
+                       <input type="button" value="+CheckIn" disabled="disabled" class="" btn btn-sm btn-primary"" />
+
+                  }
+                  | @Html.ActionLink("Services", "SetServicesVehicle", new { item.Appointment_No }, new { @class = "btn btn-sm btn-success" })
+                  | @Html.ActionLink("SurveyorSuggestion", "SurveyorSuggestion", new { item.Appointment_No }, new { @class = "btn btn-sm btn-info" })
+              </td>
+            </tr>
+         }
+    </tbody>
+</table>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+        $("#Services").on("click", function () {
+            alert('Your Message');
+        });
+</script>

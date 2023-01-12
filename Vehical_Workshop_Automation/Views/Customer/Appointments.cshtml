@@ -1,0 +1,120 @@
+﻿@model IEnumerable<Vehical_Workshop_Automation.Models.DateWiseSlots>
+@{
+    ViewBag.Title = "Appointments";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+<link href="~/CSS/RadioStyle.css" rel="stylesheet" />
+<h2 class="ml-3 text-bold">Make Appointment</h2>
+<p class="ml-3 my-3"><b>Vehicle Registeration Number :</b> @Session["RegNo"]</p>
+<span class="ml-3 mt-1" style="color:red;">@TempData["Error"]</span>
+<span class="mt-1" style="color:red;">@ViewBag.Invalid</span>
+<p class="ml-3 mb-0">Select Appointment Date</p>
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-group" width="50">
+            @using (Html.BeginForm("GetDateTable", "Customer"))
+            {
+                <input type="date" id="calendar" name="date" class="datepicker" onchange=" return dateChange(this);" required>
+                @*<input type="submit" class="btn btn-primary" value="Get Table" />*@
+            }
+        </div>
+        @using (Html.BeginForm("Services", "Customer", FormMethod.Post))
+        {
+            <table class="table" align="center">
+                <thead>
+                    <tr>
+                        <th>Date / Time Slots</th>
+                        <th>Slot 1 (9 Am)</th>
+                        <th>Slot 2 (11 Am)</th>
+                        <th>Slot 3 (2 Pm)</th>
+                        <th>Slot 4 (5 Pm)</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+
+                    @if (Model != null)
+                    {
+                        foreach (var data in Model)
+                        {
+                            <tr>
+                                <td id="adate">
+                                    <label for="adate">@data.Day @data.Date</label>
+                                </td>
+
+                                <td>
+                                    @if (data.Checked1 && data.SelectedSlot == "Slot 1(9-11)")
+                                    {
+                                        <div class="red">
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        @Html.RadioButton($"slot", $"Slot 1(9-11):{data.Date}", false)
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (data.Checked2 && data.SelectedSlot == "Slot 2(11-1)")
+                                    {
+                                        <div class="red">
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        @Html.RadioButton($"slot", $"Slot 2(11-1):{data.Date}", false)
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (data.Checked3 && data.SelectedSlot == "Slot 3(2-5)")
+                                    {
+                                        <div class="red">
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        @Html.RadioButton($"slot", $"Slot 3(2-5):{data.Date}", false)
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (data.Checked4 && data.SelectedSlot == "Slot 4(5-7)")
+                                    {
+                                        <div class="red">
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        @Html.RadioButton($"slot", $"Slot 4(5-7):{data.Date}", false)
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+            <input type="submit" value="+ Choose Services" class="btn sm btn btn-info mb-3 ml-3" />
+        }
+    </div>
+    @*@if (ViewBag.Invalid!=null) 
+    {
+        <script type="text/javascript">
+            alert("Date must not be less than today date");
+        </script>
+    }*@
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    function dateChange(dt) {
+        var url = "https://localhost:44354/Customer/GetDateTable/Customer?date=" + dt.value;
+        window.location.href = url;
+    }
+</script>
+
+

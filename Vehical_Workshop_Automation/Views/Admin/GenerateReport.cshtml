@@ -1,0 +1,100 @@
+﻿@model IList<Vehical_Workshop_Automation.Models.Appointment>
+
+@{
+    ViewBag.Title = "GenerateReport";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="form-group flex-row text-center" width="50">
+    @using (Html.BeginForm("GenerateReport", "Admin"))
+    {
+        <input type="date" id="calendar" name="date" class="datepicker" required>
+        <input type="submit" class="btn sm bg-gray" value="Generate Report" />
+    }
+</div>
+@using (Html.BeginForm("ExportToExcel", "Admin", FormMethod.Post))
+{
+    <table class="table table-bordered border-width-3 ml-3" id="datatable">
+        <tr>
+            <th>
+                Vehicle_Reg_No
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Total_Bill
+            </th>
+        </tr>
+
+        @for (int i=0; i< Model.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].Vehicle_Reg_No)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].Date)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => Model[i].Total_Bill)
+                </td>
+                 @Html.HiddenFor(modelItem=> Model[i].Appointment_No)
+                 @Html.HiddenFor(modelItem=> Model[i].Vehicle_Reg_No)
+                 @Html.HiddenFor(modelItem=> Model[i].Date)
+                 @Html.HiddenFor(modelItem=> Model[i].Total_Bill)
+            </tr>
+        }
+    </table>
+    <div class="text-center">
+        <input type="submit" value="Print" class="btn sm bg-gray mb-3 ml-3 text-center" />
+    </div>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<script src="~/Content/FileSaver.js"></script>
+    <script>
+        function funcExcelReport(id, name) {
+            var tab_text = '<html xmlns: x="urn:schemas-microsoft-com:office:excel">';
+            tab_text = tab_text + '<head><xml><x: ExcelWorkbook><:x ExcelWorksheet>';
+            tab_text = tab_text + '<x: Name>Test Sheet</x: Name>';
+            tab_text = tab_text + '<x:WorksheetOptions><x: Panes></x:Panes></x: WorkOptions ></x: ExcelWorksheet>';
+            tab_text = tab_text + "<table border='1px' style='color:black'>";
+            var exportTable = $('#' + id).clone();
+            exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+            exportTable.find('a').each(function (index, elem) { $(elem).remove(); });
+            tab_text = tab_text + exportTable.html();
+            tab_text = tab_text + '</table></body></html>';
+            var fileName = "Demo" + '.xls';
+            var blob = new Blob([tab_text], { type: "applicationvnd.ms-excel;charset=utf-8" })
+            window.saveas(blob, fileName);
+        }
+    </script>*@
+
+

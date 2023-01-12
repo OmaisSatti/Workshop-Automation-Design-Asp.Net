@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Vehical_Workshop_Automation.Models.App_Service>
+
+@{
+    ViewBag.Title = "SetServicesVehicle";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2 class="ml-3">All Services Set For This Vehicle</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.App_No)
+        </th>
+        <th>Service Name</th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer_Suggestion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surveyor_Suggestion)
+            </th>*@
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.App_No)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer_Suggestion)
+            </td>
+        </tr>
+    }
+</table>
+@*<div class="col ml-3">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">@item.Customer_Suggestion</h5>
+                <p class="card-text">@item.Customer_Suggestion service set for this vehicle appointment number is @item.App_No.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+
+     }
+</div>*@
+<a href="~/Customer/ViewAppointments" class="btn btn-outline-primary ml-3">Back to List</a>

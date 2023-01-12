@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Vehical_Workshop_Automation.Models.Appointment>
+
+@{
+    ViewBag.Title = "CheckIn";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2 class="ml-3">Check In</h2>
+<span class="ml-3 mt-1" style="color:red;">@ViewBag.Error</span>
+@using (Html.BeginForm("SaveCheckIn", "Customer", FormMethod.Post))
+{
+<div class="ml-3">
+    <p><b>Date Is</b> : @Session["CheckDate"]</p>
+    <p><b>Slot Number</b> : @Session["CheckSlot"]</p>
+    <p><b>Vehicle RegNo</b> : @Session["CheckReg"]</p>
+    <p><b>Bays-No</b> : @Session["CheckBay"]</p>
+</div>
+
+<div class="ml-3">
+    @Html.Label("Enter Your Current Miles")
+    <input name="currentMiles" placeholder="Enter Current Miles" required />
+    @*@Html.TextBox("currentMiles",new {required = "required"  })*@
+</div>
+<input type="submit" value="Check" class="btn sm btn-success mb-3 ml-3" />
+}

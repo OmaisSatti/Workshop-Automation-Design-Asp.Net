@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="~/CSS/style2.css">
+</head>
+<body>
+    @using (Html.BeginForm("Login", "Customer", FormMethod.Post))
+    {
+        <div class="login-form">
+            <h1 style="color: #b82927">Login Here</h1>
+            <div class="txtb">
+                <label for="mobileno" class="txt"> Enter Mobile No</label>
+                <input type="text" id="mobileno" name="mobileno" maxlength="13" placeholder="Enter Mobile No." required>
+            </div>
+            <div class="txtb">
+                <label for="mobileno"  class="txt"> Enter Your Password</label>
+                <input type="password" id="password" name="password" minlength="8" placeholder="Password" required>
+            </div>
+            <input type="submit" class="logbtn" value="Login">
+            <div class="bottom-text">
+                Don't have account? <a href="~/Customer/CustomerSignup">Sign up Here</a>
+            </div>
+        </div>
+     }
+    </body>
+</html>
+

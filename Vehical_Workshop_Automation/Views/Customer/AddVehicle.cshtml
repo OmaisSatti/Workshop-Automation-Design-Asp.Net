@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Add Vehicle";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+<h2 class="ml-3">Add New Vehicle</h2>
+<span class="ml-3 mt-1" style="color:red;">@ViewBag.msg</span>
+<link href="~/CSS/MyStyle.css" rel="stylesheet" />
+@using (Html.BeginForm("AddVehicle", "Customer", FormMethod.Post))
+{
+    <div class="ml-3">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Company</label>
+            @Html.DropDownList("company", new SelectList(ViewBag.VehicleCompany, "id", "Name"), new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="forname">Name .</label>
+            <select name="name" class="form-control" id="vehiclesDdl">
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="formodel">Model</label>
+            @Html.DropDownList("model", new SelectList(ViewBag.Model, "Value", "Text"), new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="forcolor">Color</label>
+            <input type="text" class="form-control" id="color" name="color" placeholder="Enter Vehicle Color" required>
+        </div>
+        <div class="form-group">
+            <label for="forreg">Registration No</label>
+            <input type="text" class="form-control" id="regNo" name="regNo" placeholder="Enter Registration No" required>
+        </div>
+        <div class="form-group">
+            <label for="formiles">Miles(KM)</label>
+            <input type="text" class="form-control" id="miles" name="miles" placeholder="Enter Miles in Km" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add vehicle</button>
+    </div>
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(document).on('change', '#company', function () {
+            $.getJSON('@Url.Action("GetVehicles", "Customer")' + "?id=" + $(this).val(), function (result) {
+                $("#vehiclesDdl").html(""); // makes select null before filling process
+                if (result.length > 0) {
+                    for (var i = 0; i < result.length; i++) {
+                        $("#vehiclesDdl").append('<option value="' + result[i].Name + '">' + result[i].Name + '</option>');
+                    }
+                } else {
+                    $("#vehiclesDdl").append('<option disabled="disabled">No Vehicle Found.</option>');
+                }
+
+    })
+        });
+    });
+</script>
+

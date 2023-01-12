@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Vehical_Workshop_Automation.Models.Vehicle_Customer1>
+@{
+    ViewBag.Title = "Mechanics";
+    Layout = "~/Views/Shared/_MechanicLayout.cshtml";
+}
+
+<h2>Mechanic Dashboard</h2>
+<div class="content-header">
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        @if (Model.Count() > 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Model</th>
+                        <th>Color</th>
+                        <th>Miles (KM)</th>
+                        <th>RegNo</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in Model)
+                    {
+                    <tr>
+                        <td>@data.Company</td>
+                        <td>@data.Model</td>
+                        <td>@data.Color</td>
+                        <td>@data.Miles</td>
+                        <td>@data.Reg_No</td>
+                        <td>@data.Name</td>
+                        <td>
+                            <a href="@Url.Action("Checkup","Mechanic")" class="btn sm btn btn-success">Check Up</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <center><span>No vehicle added yet.</span></center>
+        }
+
+
+    </div>
+</section>
+
+

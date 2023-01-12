@@ -1,0 +1,26 @@
+﻿@model Vehical_Workshop_Automation.Models.ServiceList
+
+@{
+    ViewBag.Title = "SurveyorSuggestion";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2 class="ml-3">Surveyor Suggestion</h2>
+@using (Html.BeginForm("SaveSuggestion", "Customer", FormMethod.Post))
+ {
+    <table class="table">
+        @for (int i = 0; i < Model.Services.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Html.CheckBoxFor(m => Model.Services[i].Selected, new { @class = "cb" }) @Model.Services[i].Name
+                </td>
+                   @Html.HiddenFor(m => Model.Services[i].Name)
+                   @Html.HiddenFor(m => Model.Services[i].id)
+            </tr>
+        }
+
+    </table>
+    <input type="submit" value="+ Save" class="btn sm btn btn-danger mb-3 ml-3 mt-3" />
+ }
+
